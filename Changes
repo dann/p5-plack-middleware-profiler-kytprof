@@ -1,5 +1,8 @@
 Revision history for Perl extension Plack::Middleware::Profiler::KYTProf
 
+0.021 Mon Feb 11 18:51:20 2013
+    * Add missing test module dependencies to Makefile.PL 
+
 0.02 Mon Feb 11 18:45:10 2013
     * enable_profile -> enable_profile_if
 
