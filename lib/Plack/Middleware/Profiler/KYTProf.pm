@@ -124,6 +124,9 @@ Plack::Middleware::Profiler::KYTProf - Profile psgi app with KYTProf
 Plack::Middleware::Profiler::KYTProf is the PSGI app profiler.
 Use logger, enable_profile and threshold option in production environment.
 
+Use profiles if you need application specific profiling.
+See the sample profile L<Plack::Middleware::Profiler::KYTProf::Profile::DefaultProfile>.
+
 =head1 SOURCE AVAILABILITY
 
 This source is in Github:
