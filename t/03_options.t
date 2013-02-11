@@ -6,6 +6,7 @@ use Plack::Builder;
 use HTTP::Request::Common;
 use t::TestProfile;
 
+# FIXME use logger to test
 subtest 'threshold option' => sub {
     my $app = sub {
         my $env      = shift;
