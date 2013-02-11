@@ -33,7 +33,7 @@ requires(
     'Devel::KYTProf' => 0,
     'Module::Load'   => 0,
 );
-test_requires( 'Test::More' => 0.98, );
+test_requires( 'Test::More' => '0.98', );
 use_test_base;
 auto_include;
 WriteAll;
