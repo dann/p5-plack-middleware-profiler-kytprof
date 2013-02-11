@@ -18,8 +18,6 @@ use Plack::Util::Accessor qw(
 use Devel::KYTProf;
 use Module::Load;
 
-use constant PROFILER_ENABLED => 'psgix.profiler.nytprof.enabled';
-
 my %PROFILER_SETUPED;
 
 sub prepare_app {
