@@ -15,7 +15,6 @@ use Plack::Util::Accessor qw(
     mutes
     enable_profile
 );
-use Devel::KYTProf;
 use Module::Load;
 
 my %PROFILER_SETUPED;
@@ -41,9 +40,14 @@ sub start_profiling_if_needed {
     my $is_profiler_enabled = $self->enable_profile->($env);
     return unless $is_profiler_enabled;
 
+    $self->_load_kytprof;
     $self->_set_kytprof_options;
     $self->_load_profiles;
     $self->_diable_module_profiling;
+}
+
+sub _load_kytprof {
+    load 'Devel::KYTProf';
 }
 
 sub _set_kytprof_options {
@@ -110,18 +114,20 @@ Plack::Middleware::Profiler::KYTProf - Profile psgi app with KYTProf
 
 =head1 SYNOPSIS
 
-  use Plack::Middleware::Profiler::KYTProf;
+    builder {
+        enable "Plack::Middleware::Profiler::KYTProf";
+        $app;
+    };
 
 =head1 DESCRIPTION
 
-Plack::Middleware::Profiler::KYTProf is
-
+Plack::Middleware::Profiler::KYTProf is the PSGI app profiler
 
 =head1 SOURCE AVAILABILITY
 
 This source is in Github:
 
-  http://github.com/dann/
+  http://github.com/dann/p5-plack-middleware-profiler-kytprof
 
 =head1 CONTRIBUTORS
 
