@@ -13,7 +13,7 @@ use Plack::Util::Accessor qw(
     remove_linefeed
     profiles
     mutes
-    enable_profile
+    enable_profile_if
 );
 use Module::Load;
 
@@ -22,12 +22,12 @@ my %PROFILER_SETUPED;
 sub prepare_app {
     my $self = shift;
 
-    $self->_setup_enable_profile;
+    $self->_setup_enable_profile_if;
 }
 
-sub _setup_enable_profile {
+sub _setup_enable_profile_if {
     my $self = shift;
-    $self->enable_profile( sub {1} ) unless $self->enable_profile;
+    $self->enable_profile_if( sub {1} ) unless $self->enable_profile_if;
 }
 
 sub start_profiling_if_needed {
@@ -37,7 +37,7 @@ sub start_profiling_if_needed {
     return if $PROFILER_SETUPED{$pid};
     $PROFILER_SETUPED{$pid} = 1;
 
-    my $is_profiler_enabled = $self->enable_profile->($env);
+    my $is_profiler_enabled = $self->enable_profile_if->($env);
     return unless $is_profiler_enabled;
 
     $self->_load_kytprof;
@@ -121,7 +121,7 @@ Plack::Middleware::Profiler::KYTProf - Profile psgi app with KYTProf
 =head1 DESCRIPTION
 
 Plack::Middleware::Profiler::KYTProf is the PSGI app profiler.
-Use logger, enable_profile and threshold option in production environment.
+Use logger, enable_profile_if and threshold option in production environment.
 
 Use profiles if you need application specific profiling.
 See the sample profile L<Plack::Middleware::Profiler::KYTProf::Profile::DefaultProfile>.
