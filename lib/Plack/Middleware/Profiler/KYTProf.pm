@@ -30,7 +30,7 @@ sub _setup_enable_profile_if {
     $self->enable_profile_if( sub {1} ) unless $self->enable_profile_if;
 }
 
-sub start_profiling_if_needed {
+sub _setup_profiler_if_needed {
     my ( $self, $env ) = @_;
 
     my $pid = $$;
@@ -39,6 +39,12 @@ sub start_profiling_if_needed {
 
     my $is_profiler_enabled = $self->enable_profile_if->($env);
     return unless $is_profiler_enabled;
+
+    $self->_setup_profiler;
+}
+
+sub _setup_profiler {
+    my $self = shift;
 
     $self->_load_kytprof;
     $self->_set_kytprof_options;
@@ -94,7 +100,7 @@ sub _load_module {
 
 sub call {
     my ( $self, $env ) = @_;
-    $self->start_profiling_if_needed($env);
+    $self->_setup_profiler_if_needed($env);
 
     my $res = $self->app->($env);
 
