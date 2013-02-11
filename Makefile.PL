@@ -28,11 +28,11 @@ name 'Plack-Middleware-Profiler-KYTProf';
 all_from 'lib/Plack/Middleware/Profiler/KYTProf.pm';
 
 requires(
-
+    'Devel::KYTProf' => 0,
+    'Module::Load'   => 0,
 );
 test_requires(
-    'Test::More'                   => 0.88,
-    'Test::LoadAllModules'         => 0.02,
+    'Test::More'           => 0.98,
 );
 use_test_base;
 auto_include;
