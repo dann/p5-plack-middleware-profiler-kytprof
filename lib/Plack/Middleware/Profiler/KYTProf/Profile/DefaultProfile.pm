@@ -48,6 +48,15 @@ sub _add_tt2_prof {
 sub _add_mojo_template_prof {
     Devel::KYTProf->add_prof(
         "Mojo::Template",
+        "render_file",
+        sub {
+            my ( $orig, $class, $file, $args ) = @_;
+            return sprintf '%s %s', "render_file", $file;
+        }
+    );
+
+    Devel::KYTProf->add_prof(
+        "Mojo::Template",
         "render",
         sub {
             my ( $orig, $class, $args ) = @_;
@@ -80,7 +89,6 @@ sub _add_kvs_profs {
 sub _add_redis_prof {
     my $class = shift;
 
-    # FIXME Add all methods
     for my $method (
         qw/
         set get incr decr exists del type
