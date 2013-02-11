@@ -79,7 +79,6 @@ sub _load_profiles {
     $profiles
         ||= ['Plack::Middleware::Profiler::KYTProf::Profile::DefaultProfile'];
     foreach my $profile (@$profiles) {
-        print $profile . "\n";
         load $profile;
         $profile->load;
     }
