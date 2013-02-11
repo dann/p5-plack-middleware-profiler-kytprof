@@ -15,7 +15,7 @@ use Plack::Util::Accessor qw(
     mutes
     enable_profile_if
 );
-use Module::Load;
+use Module::Load qw(load);
 
 my %PROFILER_SETUPED;
 
@@ -47,7 +47,8 @@ sub start_profiling_if_needed {
 }
 
 sub _load_kytprof {
-    load 'Devel::KYTProf';
+    my $self = shift;
+    $self->_load_module('Devel::KYTProf');
 }
 
 sub _set_kytprof_options {
@@ -79,9 +80,16 @@ sub _load_profiles {
     $profiles
         ||= ['Plack::Middleware::Profiler::KYTProf::Profile::DefaultProfile'];
     foreach my $profile (@$profiles) {
-        load $profile;
+        $self->_load_module($profile);
+        die "profile class must implement load method"
+            unless $profile->can('load');
         $profile->load;
     }
+}
+
+sub _load_module {
+    my ( $self, $module ) = @_;
+    eval { load $module; 1; } or die "Can't load ${module}";
 }
 
 sub call {
