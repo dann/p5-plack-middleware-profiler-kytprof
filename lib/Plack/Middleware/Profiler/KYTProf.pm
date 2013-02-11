@@ -13,18 +13,42 @@ use Plack::Util::Accessor qw(
     remove_linefeed
     profiles
     mutes
+    enable_profile
 );
 use Devel::KYTProf;
 use Module::Load;
 
+use constant PROFILER_ENABLED => 'psgix.profiler.nytprof.enabled';
+
+my %PROFILER_SETUPED;
+
 sub prepare_app {
     my $self = shift;
-    $self->set_kytprof_options;
-    $self->load_profiles;
-    $self->diable_module_profiling;
+
+    $self->_setup_enable_profile;
 }
 
-sub set_kytprof_options {
+sub _setup_enable_profile {
+    my $self = shift;
+    $self->enable_profile( sub {1} ) unless $self->enable_profile;
+}
+
+sub start_profiling_if_needed {
+    my ( $self, $env ) = @_;
+
+    my $pid = $$;
+    return if $PROFILER_SETUPED{$pid};
+    $PROFILER_SETUPED{$pid} = 1;
+
+    my $is_profiler_enabled = $self->enable_profile->($env);
+    return unless $is_profiler_enabled;
+
+    $self->_set_kytprof_options;
+    $self->_load_profiles;
+    $self->_diable_module_profiling;
+}
+
+sub _set_kytprof_options {
     my $self = shift;
     Devel::KYTProf->namespace_regex( $self->namespace_regex )
         if $self->namespace_regex;
@@ -38,7 +62,7 @@ sub set_kytprof_options {
         if $self->remove_linefeed;
 }
 
-sub diable_module_profiling {
+sub _diable_module_profiling {
     my $self = shift;
     foreach my $module ( keys %{ $self->mutes || {} } ) {
         my $method = $self->mutes->{$module};
@@ -46,14 +70,14 @@ sub diable_module_profiling {
     }
 }
 
-sub load_profiles {
+sub _load_profiles {
     my $self = shift;
 
     my $profiles ||= $self->profiles;
     $profiles
         ||= ['Plack::Middleware::Profiler::KYTProf::Profile::DefaultProfile'];
     foreach my $profile (@$profiles) {
-        print $profile ."\n";
+        print $profile . "\n";
         load $profile;
         $profile->load;
     }
@@ -61,6 +85,7 @@ sub load_profiles {
 
 sub call {
     my ( $self, $env ) = @_;
+    $self->start_profiling_if_needed($env);
 
     my $res = $self->app->($env);
 
