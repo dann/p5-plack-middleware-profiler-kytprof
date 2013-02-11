@@ -1,4 +1,7 @@
 Revision history for Perl extension Plack::Middleware::Profiler::KYTProf
 
+0.02 Mon Feb 11 18:45:10 2013
+    * enable_profile -> enable_profile_if
+
 0.01 Mon Feb 11 02:42:21 2013
 	* original version
