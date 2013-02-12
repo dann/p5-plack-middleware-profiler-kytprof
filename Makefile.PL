@@ -35,7 +35,7 @@ requires(
 );
 test_requires(
     'Test::More'   => '0.98',
-    'Text::Xslate' => 0,
+    'Text::Requires' => 0,
 );
 use_test_base;
 auto_include;

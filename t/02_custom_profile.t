@@ -1,6 +1,9 @@
 use strict;
-use Plack::Middleware::Profiler::KYTProf;
+
 use Test::More;
+use Test::Requires qw(Text::Xslate);
+
+use Plack::Middleware::Profiler::KYTProf;
 use Plack::Test;
 use Plack::Builder;
 use HTTP::Request::Common;
