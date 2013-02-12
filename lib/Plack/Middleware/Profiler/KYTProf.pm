@@ -65,6 +65,8 @@ sub _set_kytprof_options {
         if $self->ignore_class_regex;
     Devel::KYTProf->context_classes_regex( $self->context_classes_regex )
         if $self->context_classes_regex;
+
+    # TODO Should we create logger adapter for popular logging framework?
     Devel::KYTProf->logger( $self->logger )       if $self->logger;
     Devel::KYTProf->threshold( $self->threshold ) if $self->threshold;
     Devel::KYTProf->remove_linefeed( $self->remove_linefeed )
