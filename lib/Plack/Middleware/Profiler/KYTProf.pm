@@ -139,10 +139,94 @@ Plack::Middleware::Profiler::KYTProf - Profile psgi app with KYTProf
 =head1 DESCRIPTION
 
 Plack::Middleware::Profiler::KYTProf is the PSGI app profiler.
-Use logger, enable_profile_if and threshold option in production environment.
+Use enable_profile_if, logger and threshold option in production environment.
 
 Use profiles if you need application specific profiling.
-See the sample profile L<Plack::Middleware::Profiler::KYTProf::Profile::DefaultProfile>.
+See the sample profile L<Plack::Middleware::Profiler::KYTProf::Profile::TemplateEngine>.
+
+=head1 OPTIONS
+
+NOTE that some options expect a code reference. Maybe, you feel it is complicated. 
+However that will enable to control them programmably. It is more useful to your apps.
+
+=over 4
+
+=item enable_profile_if
+
+default
+
+    sub { 1 }
+
+Use code reference if you want to enable profiling programmably 
+This option is optional.
+
+=item profiles
+
+You can add profiling target modules if you use this option.
+
+default
+
+    [
+        'Plack::Middleware::Profiler::KYTProf::Profile::TemplateEngine',
+        'Plack::Middleware::Profiler::KYTProf::Profile::KVS'
+    ];
+
+=item namespace_regex
+
+See L<Devel::KYTProf> POD.
+
+default
+
+    undef
+
+
+=item ignore_class_regex
+
+See L<Devel::KYTProf> POD.
+
+default
+
+    undef
+
+
+=item context_classes_regex
+
+See L<Devel::KYTProf> POD.
+
+=item logger
+
+See L<Devel::KYTProf> POD.
+
+default
+
+    undef
+
+
+=item threshold
+
+See L<Devel::KYTProf> POD.
+
+default
+
+    undef
+
+=item remove_linefeed
+
+See L<Devel::KYTProf> POD.
+
+default
+
+    undef
+
+=item mutes
+
+See L<Devel::KYTProf> POD.
+
+default
+
+    undef
+
+=back
 
 =head1 SOURCE AVAILABILITY
 
@@ -159,6 +243,8 @@ Many thanks to:
 Dann E<lt>techmemo@gmail.comE<gt>
 
 =head1 SEE ALSO
+
+L<Devel::KYTProf>
 
 =head1 LICENSE
 
