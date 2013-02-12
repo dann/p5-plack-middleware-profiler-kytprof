@@ -83,8 +83,10 @@ sub _load_profiles {
     my $self = shift;
 
     my $profiles ||= $self->profiles;
-    $profiles
-        ||= ['Plack::Middleware::Profiler::KYTProf::Profile::DefaultProfile'];
+    $profiles ||= [
+        'Plack::Middleware::Profiler::KYTProf::Profile::TemplateEngine',
+        'Plack::Middleware::Profiler::KYTProf::Profile::KVS'
+    ];
     foreach my $profile (@$profiles) {
         $self->_load_module($profile);
         die "profile class must implement load method"
