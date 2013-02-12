@@ -16,14 +16,6 @@ sub auto_set_repository { }
 
 use inc::Module::Install;
 
-{
-    no warnings 'redefine';
-    *recommends_hack
-        = $Module::Install::VERSION > 0.70
-        ? sub { recommends(@_); $_[0] }
-        : \&recommends;
-}
-
 name 'Plack-Middleware-Profiler-KYTProf';
 all_from 'lib/Plack/Middleware/Profiler/KYTProf.pm';
 
@@ -34,7 +26,7 @@ requires(
     'Module::Load'   => 0,
 );
 test_requires(
-    'Test::More'   => '0.98',
+    'Test::More'     => '0.98',
     'Text::Requires' => 0,
 );
 use_test_base;
