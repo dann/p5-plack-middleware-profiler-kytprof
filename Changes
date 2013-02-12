@@ -1,5 +1,10 @@
 Revision history for Perl extension Plack::Middleware::Profiler::KYTProf
 
+0.04 Tue Feb 12 23:59:00 2013
+    * Renamed default profile modules.
+      DefaultProfile -> TemplateEngine, KVS
+    * Wrote pod.
+
 0.03 Mon Feb 11 23:00:00 2013
     * Fixed manifest 
 
