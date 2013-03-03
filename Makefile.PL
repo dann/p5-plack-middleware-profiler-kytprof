@@ -27,7 +27,7 @@ requires(
 );
 test_requires(
     'Test::More'     => '0.98',
-    'Text::Requires' => 0,
+    'Test::Requires' => 0,
 );
 use_test_base;
 auto_include;
