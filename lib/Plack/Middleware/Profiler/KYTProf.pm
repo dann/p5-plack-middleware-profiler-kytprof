@@ -2,7 +2,7 @@ package Plack::Middleware::Profiler::KYTProf;
 use strict;
 use warnings;
 use parent qw(Plack::Middleware);
-our $VERSION = '0.051';
+our $VERSION = '0.052';
 
 use Plack::Util::Accessor qw(
     namespace_regex

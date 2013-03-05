@@ -18,6 +18,7 @@ subtest 'Can profile with default profile' => sub {
     test_psgi $app, sub {
         my $cb  = shift;
         my $res = $cb->( GET "/" );
+        warn "Error Occured. Response body:" . $res->content if $res->code eq 500;
 
         is $res->code, 200, "Response is returned successfully";
     };
