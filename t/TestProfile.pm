@@ -16,11 +16,11 @@ sub _add_xslate_prof {
     my $class = shift;
 
     Devel::KYTProf->add_prof(
-        "Text::Xslate",
-        "render_string",
+        "t::TestPerson",
+        "name",
         sub {
             my ( $orig, $self, $args ) = @_;
-            return sprintf '%s', "render_string";
+            return "tarou";
         }
     );
 }

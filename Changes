@@ -1,5 +1,9 @@
 Revision history for Perl extension Plack::Middleware::Profiler::KYTProf
 
+
+0.06 Tue Mar 7 23:10:00 2013
+    * Fixed the custom profile test 
+
 0.052 Tue Mar 6 23:50:00 2013
     * Add some debugging code to tests because some bugs 
       aren't reproduced on the linux 
