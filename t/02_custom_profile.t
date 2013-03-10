@@ -9,7 +9,7 @@ use t::TestProfile;
 use t::TestPerson;
 
 # TODO use logger to test profiling
-subtest 'Can profile Xslate with custom profile' => sub {
+subtest 'Can profile a test module with the custom profile' => sub {
     my $app = sub {
         my $env      = shift;
         return [ '200', [ 'Content-Type' => 'text/plain' ], ["Hello World"] ];
@@ -23,7 +23,7 @@ subtest 'Can profile Xslate with custom profile' => sub {
         my $res = $cb->( GET "/" );
         warn "Error Occured. Response body:" . $res->content if $res->code eq 500;
 
-        t::TestPerson->name();
+        # t::TestPerson->name();
 
         is $res->code, 200, "Response is returned successfully";
     };
