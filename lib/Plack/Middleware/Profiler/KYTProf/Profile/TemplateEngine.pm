@@ -23,10 +23,16 @@ sub _add_xslate_prof {
         "render",
         sub {
             my ( $orig, $self, $file, $args ) = @_;
-            return sprintf '%s %s', "render", $file;
+            return [
+                '%s %s',
+                ["render_method", "file"],
+                {  
+                    "render_method" => "render",
+                    "file" => $file 
+                },
+            ];
         }
     );
-
 }
 
 sub _add_tt2_prof {
@@ -36,7 +42,14 @@ sub _add_tt2_prof {
         "process",
         sub {
             my ( $orig, $class, $file, $args ) = @_;
-            return sprintf '%s %s', "render", $file;
+            return [
+                '%s %s',
+                ["render_method", "file"],
+                {  
+                    "render_method" => "render",
+                    "file" => $file 
+                },
+            ];
         }
     );
 }
@@ -47,7 +60,15 @@ sub _add_mojo_template_prof {
         "render_file",
         sub {
             my ( $orig, $class, $file, $args ) = @_;
-            return sprintf '%s %s', "render_file", $file;
+            return [
+                '%s %s',
+                ["render_method", "file"],
+                {  
+                    "render_method" => "render_file",
+                    "file" => $file 
+                },
+            ];
+
         }
     );
 
@@ -56,7 +77,14 @@ sub _add_mojo_template_prof {
         "render",
         sub {
             my ( $orig, $class, $args ) = @_;
-            return sprintf '%s', "render";
+
+            return [
+                '%s',
+                ["render_method"],
+                {  
+                    "render_method" => "render",
+                },
+            ];
         }
     );
 
@@ -70,6 +98,14 @@ sub _add_template_pro_prof {
         sub {
             my ( $orig, $class, $args ) = @_;
             return sprintf '%s', "output";
+
+            return [
+                '%s',
+                ["render_method"],
+                {  
+                    "render_method" => "output",
+                },
+            ]
         }
     );
 }

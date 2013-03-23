@@ -27,7 +27,14 @@ sub _add_redis_prof {
             'Redis', $method,
             sub {
                 my ( $orig, $self, $key ) = @_;
-                return sprintf '%s %s', $method, $key;
+                return [
+                    '%s %s',
+                    ['redis_method', 'redis_key'],
+                    {
+                        redis_method => $method,
+                        redis_key => $key,
+                    },
+                ];
             }
         );
     }
@@ -39,14 +46,24 @@ sub _add_redis_prof {
             sub {
                 my ( $orig, $self, @args ) = @_;
                 if ( ref $args[0] eq 'ARRAY' ) {
-                    return sprintf '%s %s', $method_multi,
-                        join( ', ', map { $_->[0] } @args );
+                    return [
+                        '%s %s',
+                        ['redis_method', 'redis_key'],
+                        {
+                            redis_method => $method_multi,
+                            redis_key => join( ', ', map { $_->[0] } @args),
+                        },
+                    ];
                 }
                 else {
-                    return sprintf '%s %s', $method_multi,
-                        join( ', ',
-                        map { ref($_) eq 'ARRAY' ? join( ', ', @$_ ) : $_ }
-                            @args );
+                    return [
+                        '%s %s',
+                        ['redis_method', 'redis_key'],
+                        {
+                            redis_method => $method_multi,
+                            redis_key => join( ', ', map {ref($_) eq 'ARRAY' ? join(', ',@$_) : $_} @args),
+                        },
+                    ];
                 }
             }
         );

@@ -23,7 +23,7 @@ subtest 'Can profile a test module with the custom profile' => sub {
         my $res = $cb->( GET "/" );
         warn "Error Occured. Response body:" . $res->content if $res->code eq 500;
 
-        # t::TestPerson->name();
+        t::TestPerson->name();
 
         is $res->code, 200, "Response is returned successfully";
     };

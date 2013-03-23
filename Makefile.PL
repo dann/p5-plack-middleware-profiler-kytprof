@@ -10,7 +10,7 @@ all_from 'lib/Plack/Middleware/Profiler/KYTProf.pm';
 requires(
     'parent'         => 0,
     'Plack'          => 0,
-    'Devel::KYTProf' => 0,
+    'Devel::KYTProf' => '0.04',
     'Module::Load'   => 0,
 );
 test_requires(
