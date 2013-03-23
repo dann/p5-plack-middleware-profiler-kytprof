@@ -4,15 +4,10 @@ use warnings;
 
 sub load {
     my $class = shift;
-    $class->_add_template_engine_profs;
+    $class->_add_test_prof;
 }
 
-sub _add_template_engine_profs {
-    my $class = shift;
-    $class->_add_xslate_prof;
-}
-
-sub _add_xslate_prof {
+sub _add_test_prof {
     my $class = shift;
 
     Devel::KYTProf->add_prof(
@@ -20,7 +15,13 @@ sub _add_xslate_prof {
         "name",
         sub {
             my ( $orig, $self, $args ) = @_;
-            return "tarou";
+            return [
+                '%s',
+                ["name"],
+                {  
+                    "name" => "tarou",
+                },
+            ];
         }
     );
 }
