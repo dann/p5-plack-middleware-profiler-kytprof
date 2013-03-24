@@ -46,7 +46,7 @@ sub _add_tt2_prof {
                 '%s %s',
                 ["render_method", "file"],
                 {  
-                    "render_method" => "render",
+                    "render_method" => "process",
                     "file" => $file 
                 },
             ];
