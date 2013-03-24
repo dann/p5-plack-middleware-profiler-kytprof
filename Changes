@@ -1,5 +1,8 @@
 Revision history for Perl extension Plack::Middleware::Profiler::KYTProf
 
+0.08  Mon Mar 25 03:27:00 2013
+    * Add test for xslate 
+
 0.071 Sun Mar 24 00:14:00 2013
     * Fixed tests for Devel::KYTProf 0.04 API Incompatibilities.
 
