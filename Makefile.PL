@@ -7,6 +7,8 @@ use inc::Module::Install;
 name 'Plack-Middleware-Profiler-KYTProf';
 all_from 'lib/Plack/Middleware/Profiler/KYTProf.pm';
 
+repository 'https://github.com/dann/p5-plack-middleware-profiler-kytprof';
+
 requires(
     'parent'         => 0,
     'Plack'          => 0,
